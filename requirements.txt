@@ -1,0 +1,5 @@
+pyrogram
+tgcrypto
+wget
+youtube_dl
+youtube-search-python

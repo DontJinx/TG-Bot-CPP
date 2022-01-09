@@ -1,0 +1,43 @@
+{
+    "name": "Music Bot",
+    "description": "A Song Downloader Telegram Bot.",
+    "logo": "https://telegra.ph/file/184910f1aa369affb02aa.jpg",
+    "keywords": [
+        "Music",
+        "Songs",
+        "Telegram Bot",
+        "Jaguar Bots"
+    ],
+    "website": "https://github.com/DontJinx",
+    "repository": "https://github.com/DontJinx/Music-Bot-CPP",
+    "success_url": "https://t.me/shows_in_480p",
+    "env": {
+        "BOT_TOKEN": {
+            "description": "Your Telegram Bot token from @BotFather",
+            "value": ""
+        },
+        "API_HASH": {
+            "description": "Your API HASH from my.telegram.org",
+            "value": ""
+        },
+        "API_ID": {
+            "description": "Your API ID from my.telegram.org",
+            "value": ""
+        }
+    },
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
