@@ -1,6 +1,6 @@
 ##   Telegram Bot : To Downlaod Songs using Youtube-dl 
 
-##  We are still improving the code adding new features
+##  We are still improving the code, adding new features
 
 ## This is totally open source bot made by My Team and contributions are welcome
 
