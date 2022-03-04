@@ -1,5 +1,13 @@
-## 🎧 Song Downloader Telegram Bot 🎧
+##   Telegram Bot : To Downlaod Songs using Youtube-dl 
 
-##  [Deploy To Heroku](https://dashboard.heroku.com/new?template=https://github.com/DontJinx/Music-Bot-CPP) 
+##  We are still improving the code adding new features
+
+## This is totally open source bot made by My Team and contributions are welcome
+
+## We are adding IMDB feature in next 2 days
 
 ## Final Year Projet REPO
+
+
+
+MADE BY : 15 - 25 - 27 - 43
