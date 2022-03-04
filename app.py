@@ -18,9 +18,9 @@ Hi **{}** 👋
 
 Just send me a song name and I'll send the audio to you on Telegram.
 
-__Follow dev on github [@voidautobot](https://github.com/DontJinx)__
+__Follow dev on github [ABHI](https://github.com/DontJinx)__
 
-__Made by **@voidautobot**__
+__Made by **@Sync_0**__
 """
 
 @bot.on_message(filters.command("start") & filters.private)
