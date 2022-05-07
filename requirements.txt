@@ -3,3 +3,6 @@ tgcrypto
 wget
 youtube_dl
 youtube-search-python
+imdbpy==2020.9.25
+urllib3
+python-telegram-bot
