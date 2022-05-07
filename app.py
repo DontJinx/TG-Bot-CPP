@@ -5,13 +5,25 @@ import wget
 from pyrogram import Client, filters
 from youtube_dl import YoutubeDL
 from youtubesearchpython import SearchVideos
+import logging
+import random
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import urllib.request
+import json
+import imdb
+import os
 
 bot = Client(
     "Music Bot",
     bot_token = os.environ["BOT_TOKEN"],
     api_id = int(os.environ["API_ID"]),
-    api_hash = os.environ["API_HASH"]
+    api_hash = os.environ["API_HASH"] 
 )
+
+OMDB_API_KEY = '558c75c8'
+BOT_TOKEN = "5142295957:AAEiQ-DMehSmGNBD13Hn1KlRZUblLOCTU-Y"
+API_ID = 8297647
+API_HASH = "3aff526a1127dd7c27cdb62fd8ba281a"
 
 START_TEXT = """
 Hi **{}** 👋
@@ -29,7 +41,7 @@ async def start(_, message):
     await message.reply_text(text = msg, disable_web_page_preview=True)
     
     
-@bot.on_message(filters.text & filters.private & ~filters.command("start"))
+@bot.on_message(filters.text & filters.private & ~filters.command("song"))
 async def get_songs(_, message):
     query = message.text
     m = await message.reply_text("Searching", quote=True)
@@ -87,6 +99,60 @@ async def get_songs(_, message):
     for files in (tb, aud):
         if files and os.path.exists(files):
             os.remove(files)
+
+
+ia = imdb.IMDb() 
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+def help(update, context):
+    update.message.reply_text('Send me the name of any movie to get its details. \nTry out "Avengers Endgame"')
+
+def error(update, context):
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
+
+def reply(update, context):
+    movie_name=update.message.text
+    search = ia.search_movie(movie_name)
+      
+    id='tt'+search[0].movieID
+    
+    url= 'http://www.omdbapi.com/?i='+id+'&apikey='+OMDB_API_KEY
+    
+    x=urllib.request.urlopen(url)
+    
+    for line in x:
+        x=line.decode()
+    
+    data=json.loads(x)
+    
+    ans=''
+    ans+='*'+data['Title']+'* ('+data['Year']+')'+'\n\n'
+    ans+='*IMDb Rating*: '+data['imdbRating']+' \n'
+    ans+='*Cast*: '+data['Actors']+'\n'
+    ans+='*Genre*: '+data['Genre']+'\n\n'
+    ans+='*Plot*: '+data['Plot']+'\n'
+    ans+='[.]('+data['Poster']+')'
+    update.message.reply_text(ans,parse_mode='markdown')  
+
+
+def main():
+
+    updater = Updater(BOT_TOKEN, use_context=True)
+    dp = updater.dispatcher
+    
+    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(MessageHandler(Filters.text, reply))
+    dp.add_error_handler(error)
+
+    updater.start_polling()
+    updater.idle()
+
+
+if __name__ == '__main__':
+    main() 
     
     
 bot.run()
